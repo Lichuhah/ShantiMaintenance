@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option csharp_namespace = "Maint";
+
+package greet;
+
+service GrpcMaints {
+  rpc GetData (GetMaintsDataRequest) returns (GetMaintsDataReply);
+  rpc GetLastMaint (GetLastMaintRequest) returns (GetLastMaintReply);
+  rpc CreateMaint (CreateMaintRequest) returns (CreateMaintReply);
+}
+
+message GetMaintsDataRequest {
+  int32 assetId = 1;
+  string start = 2;
+  string end = 3;
+}
+
+message GetMaintsDataReply {
+  repeated string result = 1;
+}
+
+message GetLastMaintRequest {
+  int32 assetId = 1;
+}
+
+message GetLastMaintReply {
+  string result = 1;
+}
+
+message CreateMaintRequest {
+  int32 id = 1;
+  string plan = 2;
+}
+
+message CreateMaintReply {
+  bool result = 1;
+}

@@ -1,0 +1,17 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "aUTH";
+
+package greet;
+
+service GrpcAuth {
+  rpc CheckJwtToken (CheckJwtTokenRequest) returns (CheckJwtTokenReply);
+}
+
+message CheckJwtTokenRequest {
+  string jwt = 1;
+}
+
+message CheckJwtTokenReply {
+  bool result = 1;
+}

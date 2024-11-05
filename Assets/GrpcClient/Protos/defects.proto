@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "Maint";
+
+package greet;
+
+// определение сервиса
+service GrpcDefects {
+  // отправка сообщения
+  rpc GetData (GetDefectsDataRequest) returns (GetDefectsDataReply);
+}
+
+// сообщение от клиента содержит name
+message GetDefectsDataRequest {
+  int32 assetId = 1;
+  string start = 2;
+  string end = 3;
+}
+
+// сообщение клиенту содержит message
+message GetDefectsDataReply {
+  repeated string result = 1;
+}

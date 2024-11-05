@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Scheduler";
+
+package greet;
+
+service GrpcPlan {
+  rpc PlanMaints (PlanMaintsRequest) returns (PlanMaintsReply);
+}
+
+message PlanMaintsRequest {
+  repeated string works = 1;
+}
+
+message PlanMaintsReply {
+  bool result = 1;
+}
+

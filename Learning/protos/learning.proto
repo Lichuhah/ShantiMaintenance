@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "Learning";
+
+package greet;
+
+service GrpcLearning {
+  rpc GetRul(GetRulRequest) returns (GetRulReply);
+  rpc StartLearning(StartLearningRequest) returns (StartLearningReply);
+}
+
+message GetRulRequest {
+  int32 id = 1;
+}
+
+message GetRulReply {
+  string rul = 1;
+}
+
+message StartLearningRequest {
+  int32 assetId = 1;
+  string works = 2;
+  string defects = 3;
+  string failures = 4;
+}
+
+message StartLearningReply {
+  bool result = 1;
+}
+
+message LearningRequestItem {
+  string datetime = 1;
+  int32 type = 2;
+}

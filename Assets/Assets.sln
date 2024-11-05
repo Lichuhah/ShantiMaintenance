@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assets", "Assets\Assets.csproj", "{16AA92C8-5A0E-40D1-8563-44B4EB16B0EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcClient", "GrpcClient\GrpcClient.csproj", "{161E7983-3BFF-4453-8BAA-E1B01CAC89F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16AA92C8-5A0E-40D1-8563-44B4EB16B0EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16AA92C8-5A0E-40D1-8563-44B4EB16B0EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16AA92C8-5A0E-40D1-8563-44B4EB16B0EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16AA92C8-5A0E-40D1-8563-44B4EB16B0EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{161E7983-3BFF-4453-8BAA-E1B01CAC89F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{161E7983-3BFF-4453-8BAA-E1B01CAC89F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{161E7983-3BFF-4453-8BAA-E1B01CAC89F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{161E7983-3BFF-4453-8BAA-E1B01CAC89F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

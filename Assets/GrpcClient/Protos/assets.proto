@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "Asset";
+
+package greet;
+
+service GrpcAssets {
+  rpc FindByMac (FindByMacRequest) returns (FindByMacReply);
+  rpc SetRul(SetRulRequest) returns (SetRulReply);
+}
+
+message FindByMacRequest {
+  string key = 1;
+}
+
+message FindByMacReply {
+  int32 id = 1;
+}
+
+message SetRulRequest {
+  int32 id = 1;
+  string rul = 2;
+}
+
+message SetRulReply {
+  bool result = 1;
+}

@@ -1,0 +1,63 @@
+version: "3"
+services:     
+  postgres: 
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5431:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway" 
+    networks:
+      - diploma
+   
+  cassandra-master:
+    image: cassandra:latest
+    container_name: cassandra-master
+    environment:
+      - CASSANDRA_START_RPC=true       # default
+      - CASSANDRA_RPC_ADDRESS=0.0.0.0  # default
+      - CASSANDRA_LISTEN_ADDRESS=localhost  # default, use IP addr of container # = CASSANDRA_BROADCAST_ADDRESS
+      - CASSANDRA_CLUSTER_NAME=my-cluster
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - CASSANDRA_DC=datacenter1
+    volumes:
+      - cassandra:/var/lib/cassandra:rw
+    ports: 
+      - 7000:7000
+      - 9042:9042
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - diploma
+      
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"  # Проброс порта для доступа к MongoDB с хоста
+    volumes:
+      - mongo:/data/db  # Монтирование локальной папки для хранения данных
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root  # Задание имени пользователя администратора
+      MONGO_INITDB_ROOT_PASSWORD: example  # Задание пароля администратора
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - diploma
+      
+volumes:
+  pgdata:
+    driver: local
+  cassandra:
+    driver: local
+  mongo:
+    driver: local
+  
+    
+networks:
+  diploma:
+    external: true

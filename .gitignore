@@ -1,0 +1,7 @@
+bin
+obj
+/Test
+.idea
+Migrations
+__pycache__
+venv

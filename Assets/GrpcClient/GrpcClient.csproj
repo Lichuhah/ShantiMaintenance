@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.65.0" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Protobuf Include="Protos\assets.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\authentication.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\defects.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\maints.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\plan.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\learning.proto" GrpcServices="Client" />
+    </ItemGroup>
+
+</Project>
