@@ -44,6 +44,11 @@ class GrpcLearningStub(object):
                 request_serializer=learning__pb2.StartLearningRequest.SerializeToString,
                 response_deserializer=learning__pb2.StartLearningReply.FromString,
                 _registered_method=True)
+        self.SetLearningData = channel.unary_unary(
+                '/greet.GrpcLearning/SetLearningData',
+                request_serializer=learning__pb2.SetLearningRequest.SerializeToString,
+                response_deserializer=learning__pb2.StartLearningReply.FromString,
+                _registered_method=True)
 
 
 class GrpcLearningServicer(object):
@@ -61,6 +66,12 @@ class GrpcLearningServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SetLearningData(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_GrpcLearningServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -72,6 +83,11 @@ def add_GrpcLearningServicer_to_server(servicer, server):
             'StartLearning': grpc.unary_unary_rpc_method_handler(
                     servicer.StartLearning,
                     request_deserializer=learning__pb2.StartLearningRequest.FromString,
+                    response_serializer=learning__pb2.StartLearningReply.SerializeToString,
+            ),
+            'SetLearningData': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetLearningData,
+                    request_deserializer=learning__pb2.SetLearningRequest.FromString,
                     response_serializer=learning__pb2.StartLearningReply.SerializeToString,
             ),
     }
@@ -128,6 +144,33 @@ class GrpcLearning(object):
             target,
             '/greet.GrpcLearning/StartLearning',
             learning__pb2.StartLearningRequest.SerializeToString,
+            learning__pb2.StartLearningReply.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetLearningData(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/greet.GrpcLearning/SetLearningData',
+            learning__pb2.SetLearningRequest.SerializeToString,
             learning__pb2.StartLearningReply.FromString,
             options,
             channel_credentials,

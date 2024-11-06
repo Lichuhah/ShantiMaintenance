@@ -185,9 +185,9 @@ void CreateDefects()
 
 //CassandaraInit();
 //Telemetry.Init();
-//Assets.Clear();
-//Assets.Init();
+Assets.Clear();
 Defect.Clear();
 Works.Clear();
+Assets.Init();
 Defect.Init();
 Works.Init();

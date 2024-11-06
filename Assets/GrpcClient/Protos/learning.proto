@@ -7,21 +7,32 @@ package greet;
 service GrpcLearning {
   rpc GetRul(GetRulRequest) returns (GetRulReply);
   rpc StartLearning(StartLearningRequest) returns (StartLearningReply);
+  rpc SetLearningData(SetLearningRequest) returns (StartLearningReply);
 }
 
 message GetRulRequest {
-  int32 id = 1;
+  int32 assetId = 1;
+  int32 typeId = 2;
+  string works = 3;
+  string defects = 4;
+  string failures = 5;
 }
 
 message GetRulReply {
-  string rul = 1;
+  int32 rul = 1;
+}
+
+message SetLearningRequest {
+  int32 assetId = 1;
+  int32 typeId = 2;
+  string works = 3;
+  string defects = 4;
+  string failures = 5;
 }
 
 message StartLearningRequest {
-  int32 assetId = 1;
-  string works = 2;
-  string defects = 3;
-  string failures = 4;
+  int32 id = 1;
+  int32 typeId = 2;
 }
 
 message StartLearningReply {

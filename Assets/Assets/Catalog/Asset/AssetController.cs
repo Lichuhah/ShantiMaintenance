@@ -1,4 +1,5 @@
-﻿using Assets.Base;
+﻿using Asset;
+using Assets.Base;
 using Assets.Infrastructure;
 using Assets.Maintenance;
 using Google.Protobuf;
@@ -25,20 +26,22 @@ public class AssetController: BaseController<AssetDto, Asset>
             WorkRepository workRepository = new WorkRepository(Context);
             DefectRepository defectRepository = new DefectRepository(Context);
             Asset asset = Repository.Get(id);
-            List<Work> works = workRepository.All(x=>x.AssetId == asset.Id).ToList();
-            List<Defect> defects = defectRepository.All(x=>x.AssetId == asset.Id).ToList();
-            List<Failure> failures = defects.Where(x => x.Failure != null).Select(x => x.Failure).ToList();
+            List<Work> works = workRepository.All(x=>x.AssetId == asset.Id).OrderByDescending(x=>x.RegisterDate).Take(1).ToList();
+            List<Defect> defects = defectRepository.All(x=>x.AssetId == asset.Id && x.RegisterDate > works[0].RegisterDate).ToList();
             defects = defects.Where(x => x.Failure == null).ToList();
-            StartLearningRequest request = new StartLearningRequest();
+            GetRulRequest request = new GetRulRequest();
             request.AssetId = id;
             request.Defects = JsonConvert.SerializeObject(defects.Select(x => new LearningRequestItem()
                 { Datetime = x.RegisterDate.ToString(), Type = x.CategoryId ?? 0 }));
-            request.Failures= JsonConvert.SerializeObject(failures.Select(x => new LearningRequestItem()
-                { Datetime = x.RegisterDate.ToString(), Type = x.CategoryId ?? 0 }));
+            request.Failures= "[]";
             request.Works = JsonConvert.SerializeObject(works.Select(x => new LearningRequestItem()
                 { Datetime = x.RegisterDate.ToString(), Type = 0 }));
-            bool result = GrpcLearningHelper.StartPlan(request);
-            return result ? new OkObjectResult("") : new ConflictResult();
+            
+            int hours = GrpcLearningHelper.GetRul(request);
+            DateTime rul = DateTime.Now.AddHours(hours);;
+            asset.Rul = rul;
+            Repository.Save(asset);
+            return new OkObjectResult("");
         }
         catch (Exception e)
         {
