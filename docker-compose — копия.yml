@@ -24,6 +24,8 @@ services:
       - CASSANDRA_CLUSTER_NAME=my-cluster
       - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
       - CASSANDRA_DC=datacenter1
+    volumes:
+      - cassandra:/var/lib/cassandra:rw
     ports: 
       - 7000:7000
       - 9042:9042
@@ -71,6 +73,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "2181:2181"
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper
     networks:
       - diploma
       
@@ -78,8 +82,6 @@ services:
     image: 'confluentinc/cp-kafka:latest'
     depends_on:
       - zookeeper
-      - gate
-      - cassandra-master
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -119,23 +121,6 @@ services:
       - "host.docker.internal:host-gateway"
     networks:
       - diploma 
-   
-  etl:
-    build:
-        context: ./ETL
-        dockerfile: ./ETL/Dockerfile
-    container_name: etl
-    environment:
-      RABBIT_HOST: rabbitmq
-      CASSANDRA_HOST: cassandra-master
-      KAFKA_HOST: kafka
-      REDIS_HOST: redis
-    links:
-      - rabbitmq
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    networks:
-      - diploma  
    
 volumes:
   pgdata:
